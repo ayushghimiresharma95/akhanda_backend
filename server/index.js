@@ -11,7 +11,7 @@ dotenv.config();
 
 app.use(express.json()); // Use built-in middleware for JSON parsing
 app.use(cors({
-    origin: "http://localhost:3000",
+    origin: process.env.SITE,
     methods: "GET,POST,PUT,DELETE"
 }));
 
@@ -34,7 +34,7 @@ app.use((req, res, next) => {
 mongoose.set('strictQuery', false);
 mongoose.connect(process.env.MONGO_URI || 'mongodb+srv://ayushghimire95:admin@cluster0.z9m6bqp.mongodb.net/ecommerce')
     .then(() => {
-        app.listen(process.env.PORT || 3001, () => console.log(`Server is running on port ${process.env.PORT || 3001}`));
+        app.listen(3002, () => console.log(`Server is running on port ${process.env.PORT || 3001}`));
     })
     .catch(err => console.log(err));
 
