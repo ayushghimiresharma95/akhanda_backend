@@ -19,6 +19,10 @@ const LounasSchema = new Schema({
             type: String,
             required: true,
             min: 0,
+        },
+        eng_description:{
+            type:String,
+            required:true,
         }
     }],
 }, { timestamps: true });
