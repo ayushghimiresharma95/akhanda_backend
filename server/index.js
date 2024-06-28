@@ -16,8 +16,8 @@ dotenv.config();
 
 app.use(express.json()); // Use built-in middleware for JSON parsing
 app.use(cors({
-    origin: ["https://ravintolaakhanda.fi","http://localhost:3001"]
- 
+    origin: "http://localhost:3001",
+    methods: "GET,POST,PUT,DELETE",
 }));
 
 app.use(cookieSession({
@@ -47,9 +47,9 @@ app.use((req, res, next) => {
 // Define your route for getting lunch data
 app.get("/api/lounas", async (req, res) => {
     try {
-        const Lunch = await Lounas.find();
-        console.log(Lunch);
-        res.status(200).json(Lunch);
+        const lunch = await Lounas.find();
+        console.log(lunch);
+        res.status(200).json(lunch);
     } catch (error) {
         console.log(error);
         res.status(500).json({ message: "An error occurred while retrieving lunch data." });
