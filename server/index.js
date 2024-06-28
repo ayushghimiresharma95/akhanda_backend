@@ -16,7 +16,7 @@ dotenv.config();
 
 app.use(express.json()); // Use built-in middleware for JSON parsing
 app.use(cors({
-    origin: "http://localhost:3001",
+    origin: "https://ravintolaakhanda.fi",
     methods: "GET,POST,PUT,DELETE",
 }));
 
