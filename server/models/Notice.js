@@ -3,6 +3,13 @@ const { Schema, model, models } = mongoose;
 
 
 const NoticeSchema  = new Schema({
+  header:{
+    type:String,
+    required:true,
+  },
+  engHeader: {
+    type:String,
+  },
   message: {
     type: String,
     required: true
