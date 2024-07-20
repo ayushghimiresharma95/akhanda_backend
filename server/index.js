@@ -14,10 +14,7 @@ const Alacartes = require("./models/Alacarte"); // Ensure correct import
 dotenv.config();
 
 app.use(express.json()); // Use built-in middleware for JSON parsing
-app.use(cors({
-    origin: "https://ravintolaakhanda.fi",
-    methods: "GET,POST,PUT,DELETE",
-}));
+app.use(cors())
 
 app.use(cookieSession({
     name: "session",
@@ -90,20 +87,25 @@ app.get('/api/alacarte', async (req, res) => {
         const alacarte = await Alacartes.find();
 
         // Map through the sections and find items with `seen: true`
-        const updateMenu = alacarte.map(({ section, items }) => {
+        const updateMenu = alacarte.map(({ section, index, items }) => {
             return {
                 section,
+                index: Number(index), // Ensure the index is a number
                 items: items.filter(item => item.seen === true)
             };
         });
+        console.log(updateMenu)
 
         // Filter out sections that have no items with `seen: true`
-        
+        const filteredMenu = updateMenu.filter(({ items }) => items.length > 0);
 
-        res.status(200).json(updateMenu);
+        // Sort the filtered menu based on the index field
+        filteredMenu.sort((a, b) => a.index - b.index);
+
+        res.status(200).json(filteredMenu);
     } catch (error) {
         console.error('Error fetching or updating menu items:', error);
-        res.status(200).json({ message: 'An error occurred while fetching or updating menu items.' });
+        res.status(500).json({ message: 'An error occurred while fetching or updating menu items.' });
     }
 });
 
