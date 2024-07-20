@@ -14,7 +14,10 @@ const Alacartes = require("./models/Alacarte"); // Ensure correct import
 dotenv.config();
 
 app.use(express.json()); // Use built-in middleware for JSON parsing
-app.use(cors())
+app.use(cors({
+    origin: "https://ravintolaakhanda.fi",
+    methods: "GET,POST,PUT,DELETE",
+}));
 
 app.use(cookieSession({
     name: "session",
